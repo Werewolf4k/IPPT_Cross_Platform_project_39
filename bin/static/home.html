@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<script>		
+			fetch('/users').then(function(response){
+				return response.json();
+			}).then(function(users){
+				var table = document.createElement('table');
+				document.body.appendChild(table);
+				
+				users.forEach(function(user){
+					var tr = table.insertRow();
+					
+					Object.keys(user).forEach(function(fieldName) {
+						var td = tr.insertCell();
+					    td.innerText = user[fieldName];
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

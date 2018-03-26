@@ -8,7 +8,7 @@ public class User implements Serializable {
 	
 	private int id;
 	private String username;
-	private List<Role> roles;
+	//private transient List<Role> roles;
 
 	public User() {
 		super();
@@ -18,7 +18,7 @@ public class User implements Serializable {
 		super();
 		this.id = id;
 		this.username = username;
-		this.roles = roles;
+		//this.roles = roles;
 	}
 
 	public int getId() {
@@ -37,13 +37,13 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	public List<Role> getRoles() {
+	/*public List<Role> getRoles() {
 		return roles;
 	}
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
-	}
+	}*/
 
 	public static class Role implements Serializable {
 		private static final long serialVersionUID = 1L;

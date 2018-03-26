@@ -25,7 +25,10 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.mongodb:mongodb-driver:3.6.3')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	
+	compile('com.h2database:h2')
+	
 	runtime('org.springframework.boot:spring-boot-devtools')
 	
 }

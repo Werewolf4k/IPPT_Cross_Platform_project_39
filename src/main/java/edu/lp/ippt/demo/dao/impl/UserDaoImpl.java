@@ -1,32 +1,22 @@
 package edu.lp.ippt.demo.dao.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
-import org.bson.Document;
-
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.MongoClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import edu.lp.ippt.demo.dao.UserDao;
 import edu.lp.ippt.demo.domain.User;
 
+@Repository
 public class UserDaoImpl implements UserDao{
 	
-	private MongoClient client;
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	
-	private ObjectMapper parser;
-	
-	public UserDaoImpl() {
-		parser = new ObjectMapper();
-		parser.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		
-		client = new MongoClient("127.0.0.1:27017");
-	}
-
 	@Override
 	public User getUser(int id) {
 		// TODO Auto-generated method stub
@@ -35,9 +25,8 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public List<User> getUsers() {
-		List<Document> result = new ArrayList<>();
-		client.getDatabase("ippt").getCollection("user").find().into(result);
-		return result.stream().map(this::parse).collect(Collectors.toList());
+		// add roles for each user using subquery or joined query
+		return jdbcTemplate.query("select * from user", new BeanPropertyRowMapper<User>(User.class));
 	}
 
 	@Override
@@ -57,12 +46,5 @@ public class UserDaoImpl implements UserDao{
 		
 	}
 	
-	private User parse(Document document) {
-		try {
-			return parser.readValue(document.toJson(), User.class);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
 
 }

@@ -40,14 +40,14 @@ public class UserController {
 		return userService.getUser(id);
 	}
 	
-	@RequestMapping(value = "/users/", method = RequestMethod.POST)
+	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	public void createUser(@RequestBody User user) {
 		userService.createUser(user);
 		
 		//return new user id / or user object
 	}
 	
-	@RequestMapping(value = "/users/", method = RequestMethod.PUT)
+	@RequestMapping(value = "/users", method = RequestMethod.PUT)
 	public void updateUser(@RequestBody User user) {
 		//validate input 
 		//check if existing user

@@ -19,8 +19,7 @@ public class UserDaoImpl implements UserDao{
 	
 	@Override
 	public User getUser(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return jdbcTemplate.queryForObject("select * from user where id = " + id, new BeanPropertyRowMapper<User>(User.class));
 	}
 
 	@Override
